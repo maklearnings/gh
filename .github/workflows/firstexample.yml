@@ -8,4 +8,7 @@ jobs:
     steps:
       - name: Welcome Message
         run: echo "welcome to my first example workflow!"
+
+      - name: List files
+        run: ls -la
             
