@@ -6,6 +6,9 @@ jobs:
   first_job:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
       - name: Welcome Message
         run: echo "welcome to my first example workflow!"
 
