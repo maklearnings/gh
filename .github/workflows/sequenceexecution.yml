@@ -3,23 +3,49 @@ name: Sequential Jobs
 on:
   push:
 
+    
+
 jobs:
+
+  
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Build
-        run: echo "Building application..."
+        run:  sudo apt-get install cowsay -y
+        
+      - name: Execute Cowsay CMD
+        run: cowsay -f dragon "Run for cover,I am a dragon ... RAWRRRR!" >> dragon.txt 
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: dragon-artifact 
+          path: dragon.txt  
 
   test:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Test
+      - name: Download artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: dragon-artifact
+
+      - name: Run tests
         run: echo "Running tests..."
 
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy
+       - name: Download artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: dragon-artifact
+
+       - name: Read file 
+        run: cat dragon.txt
+
+        -name: Deploy
         run: echo "Deploying application..."
