@@ -1,7 +1,9 @@
 name: Variable Usage
 
-on:
-  push:
+on: 
+  schedule:
+    - cron: '*/1 * * * *' # Runs every 5 minutes
+  #push:
 
 env:
   CONTAINER_REGISTRY: docker.io
