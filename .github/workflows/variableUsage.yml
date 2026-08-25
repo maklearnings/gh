@@ -5,7 +5,6 @@ on:
 
 env:
   CONTAINER_REGISTRY: docker.io
-  DOCKER_USERNAME: makesh
   IMAGE_NAME: github-actions-nginx
 
 jobs:
@@ -18,16 +17,16 @@ jobs:
         run: echo docker build -t ${{ env.CONTAINER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/$IMAGE_NAME:latest 
     
       - name: Docker login
-        env:
-          DOCKER_PASSWORD: securepassword
-        run: echo docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD
+        
+        run: echo docker login --username=$DOCKER_USERNAME --password=${{ secrets.DOCKER_PASSWORD }} 
+    
+
 
       - name: Docker publish
         run: echo docker push $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME:latest
   Deploy:
     env: 
       CONTAINER_REGISTRY: docker.io
-      DOCKER_USERNAME: makesh
       IMAGE_NAME: github-actions-nginx
     needs: docker
     runs-on: ubuntu-latest
