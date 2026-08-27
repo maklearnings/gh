@@ -1,0 +1,23 @@
+name: workflowFilter and Activies 
+
+on:
+   push:
+      branches:
+         - main # deploy only on main branch
+         - '!feature/**' # ignore all branches starting with feature/
+   pull_request:
+      types: 
+         - opened # run workflow when PR is opened 
+         - reopened #run workflow when PR is reopened
+         - closed #run workflow when PR is closed
+      paths-ignore: #ignore workflow for certain files
+         - README.md #ignore workflow if only README.md file is changed
+      branches: #run workflow only for certain branches
+         - main #run workflow only for main branch
+  
+
+jobs:
+   workflow-filter:
+      runs-on: ubuntu-latest
+      steps:
+         - run: 'echo "Workflow triggered for events: ${{ github.event_name }}"'
