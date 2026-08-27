@@ -1,0 +1,19 @@
+name: matrix
+
+on:
+  push:    
+
+jobs:
+
+  depoly:
+    matrix:
+      os: [ubuntu-latest, ubuntu-24.04,windows-latest]
+      images: [hello-world, alpine]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: echo docker details
+        run:  docker info
+
+      - name: Run Image on ${{ matrix.os }}
+        run: docker run ${{ matrix.images }}  
