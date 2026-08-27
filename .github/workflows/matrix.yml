@@ -6,11 +6,14 @@ on:
 jobs:
 
   depoly:
+    # we have mentioned max-parallel as 2, so only 2 jobs will run in parallel at a time. The rest of the jobs will be queued and will run once the previous jobs are completed.
     strategy:
       max-parallel: 2
+    # matrix allows you to run the same job with different configurations. In this example, we are running the same job on different operating systems and different docker images.  
       matrix:
         os: [ubuntu-latest, ubuntu-24.04, windows-latest]
         images: [hello-world, alpine]
+    #exclude allows you to exclude certain combinations of matrix values. In this example, we are excluding the combination of windows-latest and alpine image, as alpine is not supported on windows.    
         exclude:
           - os: windows-latest
             images: alpine   
